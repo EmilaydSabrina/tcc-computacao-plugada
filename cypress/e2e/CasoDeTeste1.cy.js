@@ -10,6 +10,7 @@ describe('Testes combinados', () => {
     navButton: '.nav-btn',
     containerButton: '.containerButton',
     strongElement: 'strong',
+    listItemFirst: 'ul > :nth-child(1)',
     listItemSecond: 'ul > :nth-child(2)',
     listItemFourth: 'ul > :nth-child(4)',
     listItemGeneral: 'li'
@@ -38,7 +39,7 @@ describe('Testes combinados', () => {
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get('.sc-gEvEer > :nth-child(3)').click('');
-    cy.get(selectors.listItemSecond).click('');
+    cy.get(selectors.listItemSecond).click();
     cy.get(selectors.tryAgainMessage).should('contain', 'Tente outra vez.')
   })
 
@@ -48,7 +49,7 @@ describe('Testes combinados', () => {
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get(selectors.listItem).click();
-    cy.get('[href="/levelSelection"] > .nav-btn > .containerButton').click('')
+    cy.get('[href="/levelSelection"] > .nav-btn > .containerButton').click();
     cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
   })
 
@@ -58,7 +59,7 @@ describe('Testes combinados', () => {
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get(selectors.listItem).click();
-    cy.get('[href="/level1-1"] > .nav-btn > .containerButton').click('');
+    cy.get('[href="/level1-1"] > .nav-btn > .containerButton').click();
     cy.get(selectors.strongElement).should('contain', 'FASE 1')
   })
 
@@ -88,21 +89,9 @@ describe('Testes combinados', () => {
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get(selectors.listItemSecond).click();
-
+    cy.wait(1000);
     cy.get(selectors.listItemFourth).click();
     cy.get(selectors.listItemGeneral).should('contain', 'Já assisti!')
-  })
-
-  it('Verificar se ao pressionar o botão de reprodução no vídeo na fase 2, ele seja executado de forma adequada.', () => {
-    cy.get(selectors.homeButton).click();
-    cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
-    cy.get('.sc-gEvEer > :nth-child(3)').click();
-    cy.get('.sc-gEvEer > :nth-child(3)').click();
-    cy.get('.sc-gEvEer > :nth-child(3)').click();
-    cy.get(selectors.listItemSecond).click();
-
-    cy.get(selectors.listItemFourth).click();
-    
   })
 
   it('Verificar se ao clicar no botão “Já assisti!” após finalizar a fase 2, será exibida uma mensagem para informar a conclusão da fase.', () => {
@@ -112,23 +101,354 @@ describe('Testes combinados', () => {
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get(selectors.listItemSecond).click();
-
+    cy.wait(1000)
     cy.get(selectors.listItemFourth).click();
+    cy.wait(1000)
     cy.get(selectors.listItemGeneral).click();
     cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 2 do Computação Plugada Ordenação!')
   })
 
-  it('  ', () => {
+  it('Verificar se ao submeter a resposta incorreta na fase 2, o sistema não avança para a próxima fase.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get('.sc-gEvEer > :nth-child(3)').click();
     cy.get('.sc-gEvEer > :nth-child(3)').click();
-    cy.get(selectors.listItemSecond).click();
+    cy.get(selectors.listItemFirst).click();
+    cy.get(selectors.tryAgainMessage).should('contain', 'Tente outra vez.');
+})
+   
+it(' Verificar se ao clicar no botão Home após finalizar a fase 2, o usuário será redirecionado para a tela de seleção de fases.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get(selectors.listItemSecond).click();
+  cy.wait(1000)
+  cy.get(selectors.listItemFourth).click();
+  cy.contains('Já assisti!').click();
+  cy.get('[href="/levelSelection"] > .nav-btn > .containerButton').click('')
+  cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
+})
 
-    cy.get(selectors.listItemFourth).click();
-    
+it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 2, o usuário será redirecionado para a tela de informações da fase.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get(selectors.listItemSecond).click();
+  cy.wait(1000)
+  cy.get(selectors.listItemFourth).click();
+  cy.contains('Já assisti!').click();
+  cy.get('[href="/level2-1"] > .nav-btn > .containerButton').click();
+  cy.contains( 'FASE 2')
+})
+
+it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 2, o usuário será redirecionado automaticamente para próxima fase.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get(selectors.listItemSecond).click();
+  cy.wait(1000)
+  cy.get(selectors.listItemFourth).click();
+  cy.contains('Já assisti!').click();
+  cy.get('[href="/level3-1"] > .nav-btn > .containerButton').click();
+  cy.contains( 'FASE 3')
   })
-  
+
+ it('Verificar se ao submeter a resposta correta na fase 3, o usuário será redirecionado para uma tela que contém um vídeo.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(4)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemGeneral + ':nth-child(3)').click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.should('contain', 'Próximo');
+});
+
+it('Verificar se ao clicar no botão “Próximo” após finalizar a fase 3, será exibida uma mensagem para informar a conclusão da fase.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(4)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemGeneral + ':nth-child(3)').click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 3 do Computação Plugada Ordenação!')
+})
+
+it('Verificar se ao submeter a resposta incorreta na fase 3, o sistema não avança para a próxima fase.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(4)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get(selectors.listItemSecond).click();
+  cy.get(selectors.tryAgainMessage).should('contain', 'Tente outra vez.');
+})
+
+it('Verificar se ao clicar no botão Home após finalizar a fase 3, o usuário será redirecionado para a tela de seleção de fases.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(4)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemGeneral + ':nth-child(3)').click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.get('[href="/levelSelection"] > .nav-btn > .containerButton').click('')
+  cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
+})
+
+it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 3, o usuário será redirecionado para a tela de informações da fase.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(4)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemGeneral + ':nth-child(3)').click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.get('[href="/level3-1"] > .nav-btn > .containerButton').click();
+  cy.contains( 'FASE 3')
+})
+
+it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 3, o usuário será redirecionado automaticamente para próxima fase.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(4)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemGeneral + ':nth-child(3)').click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.get('[href="/level4-1"] > .nav-btn > .containerButton').click();
+  cy.contains( 'FASE 4')
+})
+
+it('Verificar se ao submeter a resposta correta na fase 4, será exibida uma mensagem para informar a conclusão da fase.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(5)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.contains('Já assisti!').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.wait(1000);
+  cy.get(selectors.listItemSecond).click();;
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get('ul > :nth-child(1)').click();
+  cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 4 do Computação Plugada Ordenação!')
+})
+
+it('Verificar se ao submeter a resposta incorreta na fase 4, o sistema não avança para a próxima fase.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(5)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.contains('Já assisti!').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemSecond).click();
+  cy.get(selectors.tryAgainMessage).should('contain', 'Tente outra vez.');
+})
+
+it('Verificar se ao clicar no botão Home após finalizar a fase 4, o usuário será redirecionado para a tela de seleção de fases.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(5)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.contains('Já assisti!').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.wait(1000);
+  cy.get(selectors.listItemSecond).click();;
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get('ul > :nth-child(1)').click();
+  cy.get('[href="/levelSelection"] > .nav-btn > .containerButton').click();
+  cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
+})
+
+it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 4, o usuário será redirecionado para a tela de informações da fase.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(5)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.contains('Já assisti!').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.wait(1000);
+  cy.get(selectors.listItemSecond).click();;
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get('ul > :nth-child(1)').click();
+  cy.get('[href="/level4-1"] > .nav-btn > .containerButton').click();
+  cy.contains( 'FASE 4')
+})
+
+it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 4, o usuário será redirecionado automaticamente para tela de seleção de fases.', () => {
+  cy.get(selectors.homeButton).click();
+  cy.get(selectors.levelContent + ' > :nth-child(5)').click();
+  cy.get('.sc-gEvEer > :nth-child(3)').click();
+  cy.contains('Já assisti!').click();
+  cy.wait(1000);
+  cy.get(selectors.listItemFirst).click();
+  cy.wait(1000);
+  cy.get(selectors.listItemSecond).click();;
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.contains('Próximo').click();
+  cy.wait(1000);
+  cy.get('ul > :nth-child(1)').click();
+  cy.get('[href="/levelSelection"] > .nav-btn > .containerButton').click();
+  cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
+})
 
 })
+
+  
+
