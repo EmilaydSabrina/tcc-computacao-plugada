@@ -45,6 +45,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(selectors.tryAgainMessage).should('contain', 'Tente outra vez.')
   })
 
+  
   it('Verificar se ao clicar no botão Home após finalizar a fase 1, o usuário será redirecionado para a tela de seleção de fases.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
