@@ -23,3 +23,10 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+function waitUntilElementHasText(elementSelector, expectedText, timeout = 5000) {
+    return cy.get(elementSelector, { timeout }).should('contain.text', expectedText);
+  }
+  
+  module.exports = {
+    waitUntilElementHasText
+  };
