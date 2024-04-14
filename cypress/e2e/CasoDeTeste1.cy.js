@@ -6,7 +6,6 @@ describe('Testes combinados', () => {
       levelContent: '.levelSelection_content__6eMNH',
       paragraph: 'p',
       successMessage: 'span',
-      listItem: 'ul > :nth-child(1)',
       tryAgainMessage: '.style_toast-content__jaj36',
       navButton: '.nav-btn',
       containerButton: '.containerButton',
@@ -32,7 +31,7 @@ describe('Testes combinados', () => {
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get(selectors.listItemThree).click();
     cy.get(selectors.listItemThree).click();
-    cy.get(selectors.listItem).click();
+    cy.get(selectors.listItemFirst).click();
     cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 1 do Computação Plugada Ordenação!');
 })
 
@@ -51,7 +50,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get(selectors.listItemThree).click()
     cy.get(selectors.listItemThree).click()
-    cy.get(selectors.listItem).click();
+    cy.get(selectors.listItemFirst).click();
     cy.get(`${selectors.levelSelectionLink} > ${selectors.navButton} > ${selectors.containerButton}`).click();
     cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
   })
@@ -61,7 +60,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get(selectors.listItemThree).click()
     cy.get(selectors.listItemThree).click()
-    cy.get(selectors.listItem).click();
+    cy.get(selectors.listItemFirst).click();
     cy.get(`${selectors.levelSelectionLink} > ${selectors.navButton} > ${selectors.containerButton}`).click();
     cy.get(selectors.strongElement).should('contain', 'FASE 1')
   })
@@ -71,7 +70,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get(selectors.listItemThree).click()
     cy.get(selectors.listItemThree).click()
-    cy.get(selectors.listItem).click();
+    cy.get(selectors.listItemFirst).click();
     cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 1 do Computação Plugada Ordenação!')
   })
 
