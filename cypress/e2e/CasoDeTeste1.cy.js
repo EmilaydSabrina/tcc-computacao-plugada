@@ -21,12 +21,12 @@ describe('Testes combinados', () => {
     cy.visit('https://computacaoplugadaordenacao.netlify.app/');
   });
 
-  it('Verificar se Botão “Iniciar” na Tela Inicial do Sistema leva à Tela de Fases', () => {
+  it('[CT-01] Verificar se Botão “Iniciar” na Tela Inicial do Sistema leva à Tela de Fases', () => {
     cy.get(selectors.homeButton).click();
     cy.get(selectors.levelTitle).should('contain', 'Seleção de fase');
   })
 
-  it('Verificar se ao submeter a resposta correta na fase 1, será exibida uma mensagem para informar a conclusão da fase.', () => {
+  it('[CT-02] Verificar se ao submeter a resposta correta na fase 1, será exibida uma mensagem para informar a conclusão da fase.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get(selectors.listItemThree).click();
@@ -35,7 +35,7 @@ describe('Testes combinados', () => {
     cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 1 do Computação Plugada Ordenação!');
 })
 
-it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avança para a próxima fase.', () => {
+it('[CT-03] Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avança para a próxima fase.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get(selectors.listItemThree).click()
@@ -45,7 +45,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
   })
 
   
-  it('Verificar se ao clicar no botão Home após finalizar a fase 1, o usuário será redirecionado para a tela de seleção de fases.', () => {
+  it('[CT-04] Verificar se ao clicar no botão Home após finalizar a fase 1, o usuário será redirecionado para a tela de seleção de fases.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get(selectors.listItemThree).click()
@@ -55,7 +55,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
   })
 
-  it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 1, o usuário será redirecionado para a tela de informações da fase.', () => {
+  it('[CT-05] Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 1, o usuário será redirecionado para a tela de informações da fase.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get(selectors.listItemThree).click()
@@ -65,7 +65,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(selectors.strongElement).should('contain', 'FASE 1')
   })
 
-  it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 1, o usuário será redirecionado automaticamente para próxima fase.', () => {
+  it('[CT-06] Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 1, o usuário será redirecionado automaticamente para próxima fase.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(2)`).click();
     cy.get(selectors.listItemThree).click()
@@ -74,7 +74,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 1 do Computação Plugada Ordenação!')
   })
 
-  it('Verificar se ao submeter a resposta correta na fase 2, o usuário será redirecionado para uma tela que contém um vídeo.', () => {
+  it('[CT-08] Verificar se ao submeter a resposta correta na fase 2, o usuário será redirecionado para uma tela que contém um vídeo.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
     cy.get(selectors.listItemThree).click()
@@ -85,7 +85,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(selectors.listItemGeneral).should('be.visible', 'Já assisti!')
   })
 
-  it('Verificar se ao clicar no botão “Já assisti!” após finalizar a fase 2, será exibida uma mensagem para informar a conclusão da fase.', () => {
+  it('[CT-10] Verificar se ao clicar no botão “Já assisti!” após finalizar a fase 2, será exibida uma mensagem para informar a conclusão da fase.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
     cy.get(selectors.listItemThree).click()
@@ -99,7 +99,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 2 do Computação Plugada Ordenação!')
   })
 
-  it('Verificar se ao submeter a resposta incorreta na fase 2, o sistema não avança para a próxima fase.', () => {
+  it('[CT-11] Verificar se ao submeter a resposta incorreta na fase 2, o sistema não avança para a próxima fase.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
     cy.get(selectors.listItemThree).click()
@@ -109,7 +109,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 1, o sistema não avan
     cy.get(selectors.tryAgainMessage).should('contain', 'Tente outra vez.');
 })
 
-it(' Verificar se ao clicar no botão Home após finalizar a fase 2, o usuário será redirecionado para a tela de seleção de fases.', () => {
+it('[CT-12] Verificar se ao clicar no botão Home após finalizar a fase 2, o usuário será redirecionado para a tela de seleção de fases.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
   cy.get(selectors.listItemThree).click()
@@ -123,7 +123,7 @@ it(' Verificar se ao clicar no botão Home após finalizar a fase 2, o usuário 
   cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
 })
 
-it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 2, o usuário será redirecionado para a tela de informações da fase.', () => {
+it('[CT-13] Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 2, o usuário será redirecionado para a tela de informações da fase.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
   cy.get(selectors.listItemThree).click()
@@ -137,7 +137,7 @@ it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 2,
   cy.contains( 'FASE 2')
 })
 
-it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 2, o usuário será redirecionado automaticamente para próxima fase.', () => {
+it('[CT-14] Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 2, o usuário será redirecionado automaticamente para próxima fase.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(`${selectors.levelContent} > :nth-child(3)`).click('');
   cy.get(selectors.listItemThree).click()
@@ -151,7 +151,7 @@ it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 
   cy.contains( 'FASE 3')
   })
 
-  it('Verificar se ao submeter a resposta correta na fase 3, o usuário será redirecionado para uma tela que contém um vídeo.', () => {
+  it('[CT-15] Verificar se ao submeter a resposta correta na fase 3, o usuário será redirecionado para uma tela que contém um vídeo.', () => {
     cy.get(selectors.homeButton).click();
     cy.get(selectors.levelContent + ' > :nth-child(4)').click();
     cy.get(selectors.listItemThree).click()
@@ -177,7 +177,7 @@ it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 
     cy.should('contain', 'Próximo');
   });
  
-it('Verificar se ao clicar no botão “Próximo” após finalizar a fase 3, será exibida uma mensagem para informar a conclusão da fase.', () => {
+it('[CT-17] Verificar se ao clicar no botão “Já assisti!” após finalizar a fase 3, será exibida uma mensagem para informar a conclusão da fase.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(4)').click();
   cy.get(selectors.listItemThree).click()
@@ -205,7 +205,7 @@ it('Verificar se ao clicar no botão “Próximo” após finalizar a fase 3, se
   cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 3 do Computação Plugada Ordenação!')
 })
 
-it('Verificar se ao submeter a resposta incorreta na fase 3, o sistema não avança para a próxima fase.', () => {
+it('[CT-18] Verificar se ao submeter a resposta incorreta na fase 3, o sistema não avança para a próxima fase.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(4)').click();
   cy.get(selectors.listItemThree).click()
@@ -215,7 +215,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 3, o sistema não avan
   cy.get(selectors.tryAgainMessage).should('contain', 'Tente outra vez.');
 })
 
-it('Verificar se ao clicar no botão Home após finalizar a fase 3, o usuário será redirecionado para a tela de seleção de fases.', () => {
+it('[CT-19] Verificar se ao clicar no botão Home após finalizar a fase 3, o usuário será redirecionado para a tela de seleção de fases.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(4)').click();
   cy.get(selectors.listItemThree).click()
@@ -244,7 +244,7 @@ it('Verificar se ao clicar no botão Home após finalizar a fase 3, o usuário s
   cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
 })
 
-it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 3, o usuário será redirecionado para a tela de informações da fase.', () => {
+it('[CT-20] Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 3, o usuário será redirecionado para a tela de informações da fase.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(4)').click();
   cy.get(selectors.listItemThree).click()
@@ -273,7 +273,7 @@ it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 3,
   cy.contains( 'FASE 3')
 })
 
-it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 3, o usuário será redirecionado automaticamente para próxima fase.', () => {
+it('[CT-21] Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 3, o usuário será redirecionado automaticamente para próxima fase.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(4)').click();
   cy.get(selectors.listItemThree).click()
@@ -302,7 +302,7 @@ it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 
   cy.contains( 'FASE 4')
 })
 
-it('Verificar se ao submeter a resposta correta na fase 4, será exibida uma mensagem para informar a conclusão da fase.', () => {
+it('[CT-22] Verificar se ao submeter a resposta correta na fase 4, será exibida uma mensagem para informar a conclusão da fase.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(5)').click();
   cy.get(selectors.listItemThree).click()
@@ -329,11 +329,11 @@ it('Verificar se ao submeter a resposta correta na fase 4, será exibida uma men
   cy.wait(1000);
   cy.contains('Próximo').click();
   cy.wait(1000);
-  cy.get(selectors.listItem).click();
+  cy.get(selectors.listItemFirst).click();
   cy.get(selectors.successMessage).should('contain', 'Você concluiu a FASE 4 do Computação Plugada Ordenação!')
 })
 
-it('Verificar se ao submeter a resposta incorreta na fase 4, o sistema não avança para a próxima fase.', () => {
+it('[CT-24] Verificar se ao submeter a resposta incorreta na fase 4, o sistema não avança para a próxima fase.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(5)').click();
   cy.get(selectors.listItemThree).click()
@@ -342,7 +342,7 @@ it('Verificar se ao submeter a resposta incorreta na fase 4, o sistema não avan
   cy.get(selectors.tryAgainMessage).should('contain', 'Tente outra vez.');
 })
 
-it('Verificar se ao clicar no botão Home após finalizar a fase 4, o usuário será redirecionado para a tela de seleção de fases.', () => {
+it('[CT-25] Verificar se ao clicar no botão Home após finalizar a fase 4, o usuário será redirecionado para a tela de seleção de fases.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(5)').click();
   cy.get(selectors.listItemThree).click()
@@ -374,7 +374,7 @@ it('Verificar se ao clicar no botão Home após finalizar a fase 4, o usuário s
   cy.get(selectors.levelTitle).should('contain', 'Seleção de fase')
 })
 
-it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 4, o usuário será redirecionado para a tela de informações da fase.', () => {
+it('[CT-26] Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 4, o usuário será redirecionado para a tela de informações da fase.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(5)').click();
   cy.get(selectors.listItemThree).click()
@@ -406,7 +406,7 @@ it('Verificar se ao clicar no botão de ícone Reload, após finalizar a fase 4,
   cy.contains( 'FASE 4')
 })
 
-it('Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 4, o usuário será redirecionado automaticamente para tela de seleção de fases.', () => {
+it('[CT-27] Verificar se ao clicar no botão com ícone de Seta, após finalizar a fase 4, o usuário será redirecionado automaticamente para tela de seleção de fases.', () => {
   cy.get(selectors.homeButton).click();
   cy.get(selectors.levelContent + ' > :nth-child(5)').click();
   cy.get(selectors.listItemThree).click()
