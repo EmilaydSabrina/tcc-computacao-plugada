@@ -1,26 +1,12 @@
-describe('Testes combinados', () => {
-  const selectors = {
-      homeButton: '.home_btn__nm6eR',
-      levelTitle: '.levelSelection_title__VjOgI',
-      levelSelectionLink: '[href="/levelSelection"]',
-      levelContent: '.levelSelection_content__6eMNH',
-      paragraph: 'p',
-      successMessage: 'span',
-      tryAgainMessage: '.style_toast-content__jaj36',
-      navButton: '.nav-btn',
-      containerButton: '.containerButton',
-      listItemThree: '.sc-gEvEer > :nth-child(3)',
-      strongElement: 'strong',
-      listItemFirst: 'ul > :nth-child(1)',
-      listItemSecond: 'ul > :nth-child(2)',
-      listItemFourth: 'ul > :nth-child(4)',
-      listItemGeneral: 'li'
-  };
+
+import selectors from './selectors.js';
 
   beforeEach(() => {
     cy.visit('https://computacaoplugadaordenacao.netlify.app/');
   });
 
+  describe('Testes combinados', () => {
+    
   it('[CT-01] Verificar se Botão “Iniciar” na Tela Inicial do Sistema leva à Tela de Fases', () => {
     cy.get(selectors.homeButton).click();
     cy.get(selectors.levelTitle).should('contain', 'Seleção de fase');
@@ -439,6 +425,8 @@ it('[CT-27] Verificar se ao clicar no botão com ícone de Seta, após finalizar
 })
 
 })
+
+
 
   
 
